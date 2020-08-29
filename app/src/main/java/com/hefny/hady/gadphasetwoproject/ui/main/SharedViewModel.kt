@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import com.hefny.hady.gadphasetwoproject.R
 import com.hefny.hady.gadphasetwoproject.api.ServiceGenerator
 import com.hefny.hady.gadphasetwoproject.api.responses.LearningLeader
+import com.hefny.hady.gadphasetwoproject.api.responses.SkillIqLeader
 import com.hefny.hady.gadphasetwoproject.utils.Resource
 import retrofit2.Call
 import retrofit2.Callback
@@ -22,8 +23,14 @@ class SharedViewModel(private val context: Application) : AndroidViewModel(conte
     val learningLeadersLiveData: LiveData<Resource<ArrayList<LearningLeader>>>
         get() = _learningLeadersMutableLiveData
 
+    private var _skillIqLeadersMutableLiveData =
+        MutableLiveData<Resource<ArrayList<SkillIqLeader>>>()
+    val skillIqLeadersLiveData: LiveData<Resource<ArrayList<SkillIqLeader>>>
+        get() = _skillIqLeadersMutableLiveData
+
     init {
         getLearningLeaders()
+        getSkillIqLeaders()
     }
 
     private fun getLearningLeaders() {
@@ -48,6 +55,32 @@ class SharedViewModel(private val context: Application) : AndroidViewModel(conte
                     response: Response<ArrayList<LearningLeader>>
                 ) {
                     _learningLeadersMutableLiveData.value = Resource.Success(response.body())
+                }
+            })
+    }
+
+    private fun getSkillIqLeaders() {
+        _skillIqLeadersMutableLiveData.value = Resource.Loading()
+        ServiceGenerator.getGadsApi().getSkillIqLeaders()
+            .enqueue(object : Callback<ArrayList<SkillIqLeader>> {
+                override fun onFailure(call: Call<ArrayList<SkillIqLeader>>, t: Throwable) {
+                    var errorMessage = context.getString(R.string.general_error_message)
+                    when (t) {
+                        is UnknownHostException, is IOException, is SocketTimeoutException -> {
+                            errorMessage = context.getString(R.string.internet_connection_error)
+                        }
+                        is HttpException -> {
+                            errorMessage = t.message()
+                        }
+                    }
+                    _skillIqLeadersMutableLiveData.value = Resource.Error(errorMessage)
+                }
+
+                override fun onResponse(
+                    call: Call<ArrayList<SkillIqLeader>>,
+                    response: Response<ArrayList<SkillIqLeader>>
+                ) {
+                    _skillIqLeadersMutableLiveData.value = Resource.Success(response.body())
                 }
             })
     }

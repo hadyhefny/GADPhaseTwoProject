@@ -39,15 +39,31 @@ class MainActivity : AppCompatActivity() {
         sharedViewModel.learningLeadersLiveData.observe(this, Observer { dataResource ->
             when (dataResource) {
                 is Resource.Loading -> {
-                    Log.d(TAG, "subscribeObservers: LOADING")
+                    Log.d(TAG, "subscribeObservers: LearningLeaders: LOADING")
                 }
                 is Resource.Success -> {
-                    Log.d(TAG, "subscribeObservers: SUCCESS")
+                    Log.d(TAG, "subscribeObservers: LearningLeaders SUCCESS")
                     Log.d(TAG, "subscribeObservers: learningLeadersList: ${dataResource.data}")
                 }
                 is Resource.Error -> {
-                    Log.d(TAG, "subscribeObservers: ERROR")
-                    Log.d(TAG, "subscribeObservers: errorMessage: ${dataResource.message}")
+                    Log.d(TAG, "subscribeObservers: LearningLeaders ERROR")
+                    Log.d(TAG, "subscribeObservers: LearningLeaders errorMessage: ${dataResource.message}")
+                }
+            }
+        })
+
+        sharedViewModel.skillIqLeadersLiveData.observe(this, Observer { dataResource ->
+            when (dataResource) {
+                is Resource.Loading -> {
+                    Log.d(TAG, "subscribeObservers: SkillIqLeaders: LOADING")
+                }
+                is Resource.Success -> {
+                    Log.d(TAG, "subscribeObservers: SkillIqLeaders: SUCCESS")
+                    Log.d(TAG, "subscribeObservers: skillIqLeadersList: ${dataResource.data}")
+                }
+                is Resource.Error -> {
+                    Log.d(TAG, "subscribeObservers: SkillIqLeaders: ERROR")
+                    Log.d(TAG, "subscribeObservers: SkillIqLeaders: errorMessage: ${dataResource.message}")
                 }
             }
         })
