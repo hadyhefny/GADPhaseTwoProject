@@ -2,4 +2,6 @@
     <string name="app_name">GADPhaseTwoProject</string>
     <string name="tab_text_1">Tab 1</string>
     <string name="tab_text_2">Tab 2</string>
+    <string name="general_error_message">Something went wrong, please try again later</string>
+    <string name="internet_connection_error">Please check your internet connection</string>
 </resources>
