@@ -6,4 +6,6 @@
     <string name="skill_iq">%1$d skill IQ Score, %2$s.</string>
     <string name="skill_iq_leaders">Skill IQ Leaders</string>
     <string name="learning_leaders">Learning Leaders</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="submit">Submit</string>
 </resources>
