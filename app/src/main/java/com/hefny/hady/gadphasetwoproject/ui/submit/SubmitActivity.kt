@@ -1,7 +1,8 @@
-package com.hefny.hady.gadphasetwoproject
+package com.hefny.hady.gadphasetwoproject.ui.submit
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.hefny.hady.gadphasetwoproject.R
 import kotlinx.android.synthetic.main.activity_submit.*
 
 class SubmitActivity : AppCompatActivity() {

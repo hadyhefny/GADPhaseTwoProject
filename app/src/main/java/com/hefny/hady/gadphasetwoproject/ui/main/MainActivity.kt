@@ -1,4 +1,4 @@
-package com.hefny.hady.gadphasetwoproject
+package com.hefny.hady.gadphasetwoproject.ui.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import com.hefny.hady.gadphasetwoproject.ui.main.LeadersViewModel
-import com.hefny.hady.gadphasetwoproject.ui.main.SectionsPagerAdapter
+import com.hefny.hady.gadphasetwoproject.R
+import com.hefny.hady.gadphasetwoproject.ui.submit.SubmitActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +25,8 @@ class MainActivity : AppCompatActivity() {
                 LeadersViewModel::class.java
             )
         submit_btn.setOnClickListener {
-            startActivity(Intent(this,SubmitActivity::class.java))
+            startActivity(Intent(this,
+                SubmitActivity::class.java))
         }
     }
 }
