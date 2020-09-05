@@ -1,13 +1,14 @@
 package com.hefny.hady.gadphasetwoproject.ui.main
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.hefny.hady.gadphasetwoproject.R
 import com.hefny.hady.gadphasetwoproject.api.ServiceGenerator
-import com.hefny.hady.gadphasetwoproject.api.responses.LearningLeader
-import com.hefny.hady.gadphasetwoproject.api.responses.SkillIqLeader
+import com.hefny.hady.gadphasetwoproject.api.responses.Leader
 import com.hefny.hady.gadphasetwoproject.utils.Resource
 import retrofit2.Call
 import retrofit2.Callback
@@ -17,15 +18,16 @@ import java.io.IOException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
-class SharedViewModel(private val context: Application) : AndroidViewModel(context) {
+class LeadersViewModel(private val context: Application) : AndroidViewModel(context) {
+    private val TAG = "AppDebug"
     private var _learningLeadersMutableLiveData =
-        MutableLiveData<Resource<ArrayList<LearningLeader>>>()
-    val learningLeadersLiveData: LiveData<Resource<ArrayList<LearningLeader>>>
+        MutableLiveData<Resource<ArrayList<Leader>>>()
+    val learningLeadersLiveData: LiveData<Resource<ArrayList<Leader>>>
         get() = _learningLeadersMutableLiveData
 
     private var _skillIqLeadersMutableLiveData =
-        MutableLiveData<Resource<ArrayList<SkillIqLeader>>>()
-    val skillIqLeadersLiveData: LiveData<Resource<ArrayList<SkillIqLeader>>>
+        MutableLiveData<Resource<ArrayList<Leader>>>()
+    val skillIqLeadersLiveData: LiveData<Resource<ArrayList<Leader>>>
         get() = _skillIqLeadersMutableLiveData
 
     init {
@@ -36,8 +38,9 @@ class SharedViewModel(private val context: Application) : AndroidViewModel(conte
     private fun getLearningLeaders() {
         _learningLeadersMutableLiveData.value = Resource.Loading()
         ServiceGenerator.getGadsApi().getLearningLeaders()
-            .enqueue(object : Callback<ArrayList<LearningLeader>> {
-                override fun onFailure(call: Call<ArrayList<LearningLeader>>, t: Throwable) {
+            .enqueue(object : Callback<ArrayList<Leader>> {
+                override fun onFailure(call: Call<ArrayList<Leader>>, t: Throwable) {
+                    Log.d(TAG, "onFailure: $t")
                     var errorMessage = context.getString(R.string.general_error_message)
                     when (t) {
                         is UnknownHostException, is IOException, is SocketTimeoutException -> {
@@ -51,8 +54,8 @@ class SharedViewModel(private val context: Application) : AndroidViewModel(conte
                 }
 
                 override fun onResponse(
-                    call: Call<ArrayList<LearningLeader>>,
-                    response: Response<ArrayList<LearningLeader>>
+                    call: Call<ArrayList<Leader>>,
+                    response: Response<ArrayList<Leader>>
                 ) {
                     _learningLeadersMutableLiveData.value = Resource.Success(response.body())
                 }
@@ -62,8 +65,8 @@ class SharedViewModel(private val context: Application) : AndroidViewModel(conte
     private fun getSkillIqLeaders() {
         _skillIqLeadersMutableLiveData.value = Resource.Loading()
         ServiceGenerator.getGadsApi().getSkillIqLeaders()
-            .enqueue(object : Callback<ArrayList<SkillIqLeader>> {
-                override fun onFailure(call: Call<ArrayList<SkillIqLeader>>, t: Throwable) {
+            .enqueue(object : Callback<ArrayList<Leader>> {
+                override fun onFailure(call: Call<ArrayList<Leader>>, t: Throwable) {
                     var errorMessage = context.getString(R.string.general_error_message)
                     when (t) {
                         is UnknownHostException, is IOException, is SocketTimeoutException -> {
@@ -77,8 +80,8 @@ class SharedViewModel(private val context: Application) : AndroidViewModel(conte
                 }
 
                 override fun onResponse(
-                    call: Call<ArrayList<SkillIqLeader>>,
-                    response: Response<ArrayList<SkillIqLeader>>
+                    call: Call<ArrayList<Leader>>,
+                    response: Response<ArrayList<Leader>>
                 ) {
                     _skillIqLeadersMutableLiveData.value = Resource.Success(response.body())
                 }
