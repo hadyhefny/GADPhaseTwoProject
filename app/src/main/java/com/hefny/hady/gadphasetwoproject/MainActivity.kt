@@ -1,5 +1,6 @@
 package com.hefny.hady.gadphasetwoproject
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -7,6 +8,7 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.hefny.hady.gadphasetwoproject.ui.main.LeadersViewModel
 import com.hefny.hady.gadphasetwoproject.ui.main.SectionsPagerAdapter
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var leadersViewModel: LeadersViewModel
@@ -22,5 +24,8 @@ class MainActivity : AppCompatActivity() {
             ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application)).get(
                 LeadersViewModel::class.java
             )
+        submit_btn.setOnClickListener {
+            startActivity(Intent(this,SubmitActivity::class.java))
+        }
     }
 }
