@@ -30,9 +30,9 @@ class LeadersFragment : Fragment() {
         initRecyclerView()
         leadersViewModel = ViewModelProvider(
             requireActivity(),
-            ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
+            ViewModelProvider.NewInstanceFactory()
         ).get(LeadersViewModel::class.java)
-        var counter = 1
+        var counter = 0
         arguments?.let {
             counter = it.getInt(ARG_SECTION_NUMBER)
         }

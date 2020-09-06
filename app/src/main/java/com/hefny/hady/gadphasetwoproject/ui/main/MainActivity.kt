@@ -21,12 +21,16 @@ class MainActivity : AppCompatActivity() {
         val tabs: TabLayout = findViewById(R.id.tabs)
         tabs.setupWithViewPager(viewPager)
         leadersViewModel =
-            ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory(application)).get(
+            ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
                 LeadersViewModel::class.java
             )
         submit_btn.setOnClickListener {
-            startActivity(Intent(this,
-                SubmitActivity::class.java))
+            startActivity(
+                Intent(
+                    this,
+                    SubmitActivity::class.java
+                )
+            )
         }
     }
 }

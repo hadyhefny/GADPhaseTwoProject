@@ -1,25 +1,16 @@
 package com.hefny.hady.gadphasetwoproject.ui.main
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
-import com.hefny.hady.gadphasetwoproject.R
+import androidx.lifecycle.ViewModel
 import com.hefny.hady.gadphasetwoproject.api.ServiceGenerator
 import com.hefny.hady.gadphasetwoproject.api.responses.Leader
 import com.hefny.hady.gadphasetwoproject.utils.Resource
 import retrofit2.Call
 import retrofit2.Callback
-import retrofit2.HttpException
 import retrofit2.Response
-import java.io.IOException
-import java.net.SocketTimeoutException
-import java.net.UnknownHostException
 
-class LeadersViewModel(private val context: Application) : AndroidViewModel(context) {
-    private val TAG = "AppDebug"
+class LeadersViewModel : ViewModel() {
     private var _learningLeadersMutableLiveData =
         MutableLiveData<Resource<ArrayList<Leader>>>()
     val learningLeadersLiveData: LiveData<Resource<ArrayList<Leader>>>
@@ -40,17 +31,7 @@ class LeadersViewModel(private val context: Application) : AndroidViewModel(cont
         ServiceGenerator.getGadsApi().getLearningLeaders()
             .enqueue(object : Callback<ArrayList<Leader>> {
                 override fun onFailure(call: Call<ArrayList<Leader>>, t: Throwable) {
-                    Log.d(TAG, "onFailure: $t")
-                    var errorMessage = context.getString(R.string.general_error_message)
-                    when (t) {
-                        is UnknownHostException, is IOException, is SocketTimeoutException -> {
-                            errorMessage = context.getString(R.string.internet_connection_error)
-                        }
-                        is HttpException -> {
-                            errorMessage = t.message()
-                        }
-                    }
-                    _learningLeadersMutableLiveData.value = Resource.Error(errorMessage)
+                    _learningLeadersMutableLiveData.value = Resource.Error()
                 }
 
                 override fun onResponse(
@@ -67,16 +48,7 @@ class LeadersViewModel(private val context: Application) : AndroidViewModel(cont
         ServiceGenerator.getGadsApi().getSkillIqLeaders()
             .enqueue(object : Callback<ArrayList<Leader>> {
                 override fun onFailure(call: Call<ArrayList<Leader>>, t: Throwable) {
-                    var errorMessage = context.getString(R.string.general_error_message)
-                    when (t) {
-                        is UnknownHostException, is IOException, is SocketTimeoutException -> {
-                            errorMessage = context.getString(R.string.internet_connection_error)
-                        }
-                        is HttpException -> {
-                            errorMessage = t.message()
-                        }
-                    }
-                    _skillIqLeadersMutableLiveData.value = Resource.Error(errorMessage)
+                    _skillIqLeadersMutableLiveData.value = Resource.Error()
                 }
 
                 override fun onResponse(

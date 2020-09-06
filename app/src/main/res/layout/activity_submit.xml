@@ -96,6 +96,7 @@
                 app:boxCornerRadiusTopEnd="5dp"
                 app:boxCornerRadiusTopStart="5dp"
                 app:hintEnabled="false"
+                app:errorEnabled="true"
                 app:layout_constraintEnd_toStartOf="@id/last_name_text_layout"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -105,10 +106,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/first_name"
-                    android:paddingVertical="14dp"
-                    android:textSize="18sp"
                     android:imeOptions="actionNext|flagNoExtractUi"
                     android:inputType="text"
+                    android:paddingVertical="14dp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -125,6 +126,7 @@
                 app:boxCornerRadiusTopEnd="5dp"
                 app:boxCornerRadiusTopStart="5dp"
                 app:hintEnabled="false"
+                app:errorEnabled="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/first_name_text_layout"
                 app:layout_constraintTop_toTopOf="parent">
@@ -134,10 +136,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/last_name"
+                    android:imeOptions="actionNext|flagNoExtractUi"
+                    android:inputType="text"
                     android:paddingVertical="14dp"
                     android:textSize="18sp"
-                    android:inputType="text"
-                    android:imeOptions="actionNext|flagNoExtractUi"
                     android:textStyle="bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -154,6 +156,7 @@
                 app:boxCornerRadiusBottomStart="5dp"
                 app:boxCornerRadiusTopEnd="5dp"
                 app:boxCornerRadiusTopStart="5dp"
+                app:errorEnabled="true"
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -164,10 +167,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email_address"
-                    android:paddingVertical="14dp"
-                    android:textSize="18sp"
                     android:imeOptions="actionNext|flagNoExtractUi"
                     android:inputType="textEmailAddress"
+                    android:paddingVertical="14dp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -184,6 +187,7 @@
                 app:boxCornerRadiusBottomEnd="5dp"
                 app:boxCornerRadiusBottomStart="5dp"
                 app:boxCornerRadiusTopEnd="5dp"
+                app:errorEnabled="true"
                 app:boxCornerRadiusTopStart="5dp"
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -195,22 +199,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/project_on_github_link"
-                    android:paddingVertical="14dp"
-                    android:textSize="18sp"
                     android:imeOptions="actionDone|flagNoExtractUi"
                     android:inputType="text"
+                    android:paddingVertical="14dp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/activity_submit_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
                 android:background="@drawable/background_gradient"
                 android:letterSpacing="0.0"
                 android:minHeight="32dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="24dp"
                 android:paddingHorizontal="50dp"
                 android:paddingVertical="2dp"
                 android:text="@string/submit"
@@ -222,6 +227,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/github_text_layout" />
+
+            <ProgressBar
+                android:id="@+id/submit_activity_progressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/orange"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

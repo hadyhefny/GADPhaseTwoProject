@@ -7,7 +7,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ServiceGenerator {
     companion object {
-        private const val BASE_URL = "https://gadsapi.herokuapp.com"
+        private const val BASE_URL = "https://gadsapi.herokuapp.com/"
+        const val SUBMIT_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSf9d1TcNU6zc6KR8bSEM41Z1g1zl35cwZr2xyjIhaMAz8WChQ/formResponse"
+        const val TEST_BASE_URL = "https://docs.google.com/forms/d/e/1F1g1zl35cwZr2xyjIhaMAz8WChQ/formResponse"
 
         private val builder: Retrofit.Builder = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -23,9 +25,14 @@ class ServiceGenerator {
         }
 
         private val gadsApi: GadsApi = getInstance().create(GadsApi::class.java)
+        private val submitApi: SubmitApi = getInstance().create(SubmitApi::class.java)
 
         fun getGadsApi(): GadsApi {
             return gadsApi
+        }
+
+        fun getSubmitApi(): SubmitApi {
+            return submitApi
         }
     }
 }
