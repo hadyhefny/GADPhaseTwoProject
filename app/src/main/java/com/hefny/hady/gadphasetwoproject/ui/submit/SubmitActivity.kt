@@ -80,7 +80,7 @@ class SubmitActivity : AppCompatActivity() {
 
     private fun submitProject(firstName: String, lastName: String, email: String, github: String) {
         val dialogBuilder = AlertDialog.Builder(this)
-        val dialogView: View = layoutInflater.inflate(R.layout.success_dialog_layout,null)
+        val dialogView: View = layoutInflater.inflate(R.layout.are_you_sure_dialog_layout,null)
         dialogBuilder.setView(dialogView)
         val dialog = dialogBuilder.create()
         dialog.window?.setBackgroundDrawable(

@@ -16,5 +16,9 @@
     <string name="last_name_error">Please enter your last name</string>
     <string name="email_error">Please enter your email</string>
     <string name="github_error">Please enter your project link on github</string>
-    <string name="submission_not_successfull">Submission not Successfull</string>
+    <string name="submission_not_successful">Submission not Successful</string>
+    <string name="submission_successful">Submission Successful</string>
+    <string name="are_you_sure">Are you sure
+        <font size="50">?</font></string>
+    <string name="yes">Yes</string>
 </resources>
