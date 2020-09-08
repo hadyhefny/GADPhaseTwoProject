@@ -1,9 +1,25 @@
 <resources>
     <string name="app_name">GADPhaseTwoProject</string>
-    <string name="general_error_message">Something went wrong, please try again later</string>
-    <string name="internet_connection_error">Please check your internet connection</string>
     <string name="learning_hours">%1$d learning hours, %2$s.</string>
     <string name="skill_iq">%1$d skill IQ Score, %2$s.</string>
     <string name="skill_iq_leaders">Skill IQ Leaders</string>
     <string name="learning_leaders">Learning Leaders</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="submit">Submit</string>
+    <string name="google_africa_n_developer_scholarship"><b>Google</b> Africa\nDeveloper Scholarship</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email_address">Email Address</string>
+    <string name="project_on_github_link">Project on GITHUB (link)</string>
+    <string name="project_submission">Project Submission</string>
+    <string name="first_name_error">Please enter your first name</string>
+    <string name="last_name_error">Please enter your last name</string>
+    <string name="email_error">Please enter your email</string>
+    <string name="github_error">Please enter your project link on github</string>
+    <string name="submission_not_successful">Submission not Successful</string>
+    <string name="submission_successful">Submission Successful</string>
+    <string name="are_you_sure">Are you sure
+        <font size="50">?</font></string>
+    <string name="yes">Yes</string>
+    <string name="error_msg">Failed to get data</string>
 </resources>

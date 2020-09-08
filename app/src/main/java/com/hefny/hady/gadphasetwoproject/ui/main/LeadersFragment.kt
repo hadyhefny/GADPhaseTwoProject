@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.hefny.hady.gadphasetwoproject.R
 import com.hefny.hady.gadphasetwoproject.api.responses.Leader
 import com.hefny.hady.gadphasetwoproject.utils.Resource
@@ -30,9 +31,9 @@ class LeadersFragment : Fragment() {
         initRecyclerView()
         leadersViewModel = ViewModelProvider(
             requireActivity(),
-            ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
+            ViewModelProvider.NewInstanceFactory()
         ).get(LeadersViewModel::class.java)
-        var counter = 1
+        var counter = 0
         arguments?.let {
             counter = it.getInt(ARG_SECTION_NUMBER)
         }
@@ -73,6 +74,11 @@ class LeadersFragment : Fragment() {
                     }
                     is Resource.Error -> {
                         progress_bar.visibility = View.GONE
+                        Snackbar.make(
+                            leaders_recycler_view,
+                            getString(R.string.error_msg),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                     }
                 }
             })
@@ -96,6 +102,11 @@ class LeadersFragment : Fragment() {
                     }
                     is Resource.Error -> {
                         progress_bar.visibility = View.GONE
+                        Snackbar.make(
+                            leaders_recycler_view,
+                            getString(R.string.error_msg),
+                            Snackbar.LENGTH_SHORT
+                        ).show()
                     }
                 }
             })
