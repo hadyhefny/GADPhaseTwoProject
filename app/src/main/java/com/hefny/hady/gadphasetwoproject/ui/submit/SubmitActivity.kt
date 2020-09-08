@@ -2,11 +2,13 @@ package com.hefny.hady.gadphasetwoproject.ui.submit
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.hefny.hady.gadphasetwoproject.R
@@ -69,18 +71,20 @@ class SubmitActivity : AppCompatActivity() {
                     submit_activity_progressbar.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
+                    showSuccessDialog()
                     submit_activity_progressbar.visibility = View.GONE
                 }
                 is Resource.Error -> {
+                    showErrorDialog()
                     submit_activity_progressbar.visibility = View.GONE
                 }
             }
         })
     }
 
-    private fun submitProject(firstName: String, lastName: String, email: String, github: String) {
+    private fun showSuccessDialog() {
         val dialogBuilder = AlertDialog.Builder(this)
-        val dialogView: View = layoutInflater.inflate(R.layout.are_you_sure_dialog_layout,null)
+        val dialogView: View = layoutInflater.inflate(R.layout.success_dialog_layout, null)
         dialogBuilder.setView(dialogView)
         val dialog = dialogBuilder.create()
         dialog.window?.setBackgroundDrawable(
@@ -90,36 +94,80 @@ class SubmitActivity : AppCompatActivity() {
             )
         )
         dialog.show()
+    }
 
-//        when {
-//            firstName.isBlank() -> {
-//                firstNameLayout.error = getString(R.string.first_name_error)
-//            }
-//            lastName.isBlank() -> {
-//                firstNameLayout.error = null
-//                lastNameLayout.error = getString(R.string.last_name_error)
-//            }
-//            email.isBlank() -> {
-//                firstNameLayout.error = null
-//                lastNameLayout.error = null
-//                emailLayout.error = getString(R.string.email_error)
-//            }
-//            github.isBlank() -> {
-//                firstNameLayout.error = null
-//                lastNameLayout.error = null
-//                emailLayout.error = null
-//                githubLayout.error = getString(R.string.github_error)
-//            }
-//            else -> {
-//                firstNameLayout.error = null
-//                lastNameLayout.error = null
-//                emailLayout.error = null
-//                githubLayout.error = null
-//                submitViewModel.submitProject(
-//                    firstName, lastName, email, github
-//                )
-//            }
-//        }
+    private fun showErrorDialog() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        val dialogView: View = layoutInflater.inflate(R.layout.error_dialog_layout, null)
+        dialogBuilder.setView(dialogView)
+        val dialog = dialogBuilder.create()
+        dialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                this,
+                R.drawable.rounded_background
+            )
+        )
+        dialog.show()
+    }
+
+    private fun showAreYouSureDialog(
+        firstName: String,
+        lastName: String,
+        email: String,
+        github: String
+    ) {
+        val dialogBuilder = AlertDialog.Builder(this)
+        val dialogView: View = layoutInflater.inflate(R.layout.are_you_sure_dialog_layout, null)
+        val yesBtn = dialogView.findViewById<MaterialButton>(R.id.yes_btn)
+        val closeIcon = dialogView.findViewById<ImageView>(R.id.close_image)
+        dialogBuilder.setView(dialogView)
+        val dialog = dialogBuilder.create()
+        dialog.window?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                this,
+                R.drawable.rounded_background
+            )
+        )
+        dialog.show()
+        yesBtn.setOnClickListener {
+            submitViewModel.submitProject(
+                firstName, lastName, email, github
+            )
+            dialog.dismiss()
+        }
+        closeIcon.setOnClickListener {
+            dialog.dismiss()
+        }
+    }
+
+    private fun submitProject(firstName: String, lastName: String, email: String, github: String) {
+        when {
+            firstName.isBlank() -> {
+                firstNameLayout.error = getString(R.string.first_name_error)
+            }
+            lastName.isBlank() -> {
+                firstNameLayout.error = null
+                lastNameLayout.error = getString(R.string.last_name_error)
+            }
+            email.isBlank() -> {
+                firstNameLayout.error = null
+                lastNameLayout.error = null
+                emailLayout.error = getString(R.string.email_error)
+            }
+            github.isBlank() -> {
+                firstNameLayout.error = null
+                lastNameLayout.error = null
+                emailLayout.error = null
+                githubLayout.error = getString(R.string.github_error)
+            }
+            else -> {
+                firstNameLayout.error = null
+                lastNameLayout.error = null
+                emailLayout.error = null
+                githubLayout.error = null
+                showAreYouSureDialog(firstName, lastName, email, github)
+            }
+        }
     }
 
     // restore previously saved state of edit text fields

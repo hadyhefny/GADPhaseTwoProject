@@ -38,7 +38,11 @@ class LeadersViewModel : ViewModel() {
                     call: Call<ArrayList<Leader>>,
                     response: Response<ArrayList<Leader>>
                 ) {
-                    _learningLeadersMutableLiveData.value = Resource.Success(response.body())
+                    if (response.isSuccessful) {
+                        _learningLeadersMutableLiveData.value = Resource.Success(response.body())
+                    } else {
+                        _learningLeadersMutableLiveData.value = Resource.Error()
+                    }
                 }
             })
     }
@@ -55,7 +59,11 @@ class LeadersViewModel : ViewModel() {
                     call: Call<ArrayList<Leader>>,
                     response: Response<ArrayList<Leader>>
                 ) {
-                    _skillIqLeadersMutableLiveData.value = Resource.Success(response.body())
+                    if (response.isSuccessful) {
+                        _skillIqLeadersMutableLiveData.value = Resource.Success(response.body())
+                    } else {
+                        _skillIqLeadersMutableLiveData.value = Resource.Error()
+                    }
                 }
             })
     }

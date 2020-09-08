@@ -22,7 +22,7 @@ class SubmitViewModel : ViewModel() {
     ) {
         _submitProjectMutableLiveData.value = Resource.Loading()
         ServiceGenerator.getSubmitApi().submitProject(
-            ServiceGenerator.TEST_BASE_URL,
+            ServiceGenerator.SUBMIT_BASE_URL,
             firstName, lastName, email, github
         ).enqueue(object : Callback<Unit> {
             override fun onFailure(call: Call<Unit>, t: Throwable) {
@@ -30,7 +30,11 @@ class SubmitViewModel : ViewModel() {
             }
 
             override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
-                _submitProjectMutableLiveData.value = Resource.Success()
+                if (response.isSuccessful) {
+                    _submitProjectMutableLiveData.value = Resource.Success()
+                } else {
+                    _submitProjectMutableLiveData.value = Resource.Error()
+                }
             }
         })
     }
